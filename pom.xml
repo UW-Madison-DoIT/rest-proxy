@@ -6,12 +6,27 @@
   <packaging>jar</packaging>
   <version>1.0-SNAPSHOT</version>
   <name>json-proxy-service</name>
-  <url>https://github.com/timlevett/json-proxy-service</url>
+  <url>https://github.com/UW-Madison-DoIT/json-proxy-service</url>
   
   <properties>
     <spring.version>4.1.5.RELEASE</spring.version>
     <slf4j.version>1.7.5</slf4j.version>
   </properties>
+  
+  <licenses>
+    <license>
+      <name>Apache License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+  
+  <scm>
+        <connection>scm:git:git@github.com:UW-Madison-DoIT/json-proxy-service.git</connection>
+        <developerConnection>scm:git:git@github.com:UW-Madison-DoIT/json-proxy-service.git</developerConnection>
+        <url>https://github.com/UW-Madison-DoIT/json-proxy-service</url>
+      <tag>HEAD</tag>
+  </scm>
   
   <dependencies>
     <!-- compile -->
