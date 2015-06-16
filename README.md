@@ -2,7 +2,7 @@
 A Simple server side JSON proxy service written in Java
 
 ### Setup
-+ Configure your `Spring application context` to collect annotation beans from edu.wisc.my
++ Configure your `Spring application context` to collect annotation beans from edu.wisc.my.util
 ```xml
     <mvc:annotation-driven/>
     <context:component-scan base-package="edu.wisc.my.util"/>
