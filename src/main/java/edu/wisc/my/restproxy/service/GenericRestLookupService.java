@@ -1,4 +1,4 @@
-package edu.wisc.my.util.service;
+package edu.wisc.my.restproxy.service;
 
 import java.util.Map;
 

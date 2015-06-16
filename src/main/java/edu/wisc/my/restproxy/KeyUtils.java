@@ -1,4 +1,4 @@
-package edu.wisc.my.util;
+package edu.wisc.my.restproxy;
 
 import java.util.HashMap;
 import java.util.Map;

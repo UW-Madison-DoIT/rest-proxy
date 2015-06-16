@@ -1,4 +1,4 @@
-package edu.wisc.my.util.api;
+package edu.wisc.my.restproxy.api;
 
 import java.util.Map;
 
@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import edu.wisc.my.util.KeyUtils;
-import edu.wisc.my.util.service.GenericRestLookupService;
+import edu.wisc.my.restproxy.KeyUtils;
+import edu.wisc.my.restproxy.service.GenericRestLookupService;
 
 
 @RestController

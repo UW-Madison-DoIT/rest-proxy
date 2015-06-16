@@ -1,4 +1,4 @@
-package edu.wisc.my.util.service;
+package edu.wisc.my.restproxy.service;
 
 import java.util.Map;
 
@@ -8,7 +8,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 
-import edu.wisc.my.util.dao.GenericRestLookupDao;
+import edu.wisc.my.restproxy.dao.GenericRestLookupDao;
 
 @Service
 public class GenericRestLookupServiceImpl implements GenericRestLookupService {

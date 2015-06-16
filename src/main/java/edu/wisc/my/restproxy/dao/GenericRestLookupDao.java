@@ -1,4 +1,4 @@
-package edu.wisc.my.util.dao;
+package edu.wisc.my.restproxy.dao;
 
 import java.util.Map;
 
