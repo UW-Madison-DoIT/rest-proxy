@@ -32,6 +32,13 @@ public class GenericRestLookupController {
   @Autowired
   private Environment env;
   
+  /**
+   * service to collect headers, get information, and return JSON
+   * @param request the request
+   * @param response the response
+   * @param key the key used to do the proxy
+   * @return the object the service returns
+   */
   @RequestMapping("/{key}.json")
   public @ResponseBody Object getContactInfo(HttpServletRequest request, 
                                              HttpServletResponse response,
