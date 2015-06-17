@@ -7,6 +7,15 @@
   <version>1.0-SNAPSHOT</version>
   <name>json-proxy-service</name>
   <url>https://github.com/UW-Madison-DoIT/json-proxy-service</url>
+
+  <developers>
+    <developer>
+        <email>my-admin@lists.wisc.edu</email>
+        <organization>UW-Madison</organization>
+        <url>https://github.com/UW-Madison-DoIT/angularjs-portal</url>
+        <name>My UW Dev Team</name>
+    </developer>
+  </developers>
   
   <properties>
     <spring.version>4.1.5.RELEASE</spring.version>
@@ -27,6 +36,17 @@
         <url>https://github.com/UW-Madison-DoIT/json-proxy-service</url>
       <tag>HEAD</tag>
   </scm>
+
+  <distributionManagement>
+    <snapshotRepository>
+      <id>ossrh</id>
+      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+    </snapshotRepository>
+    <repository>
+      <id>ossrh</id>
+      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+    </repository>
+  </distributionManagement>
   
   <dependencies>
     <!-- compile -->
