@@ -6,7 +6,8 @@
   <version>1.1-SNAPSHOT</version>
   <name>json-proxy-service</name>
   <url>https://github.com/UW-Madison-DoIT/json-proxy-service</url>
-
+  <description>A simple JSON REST Proxy service</description>
+  
   <developers>
     <developer>
         <email>my-admin@lists.wisc.edu</email>
