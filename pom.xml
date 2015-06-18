@@ -3,7 +3,7 @@
   <groupId>edu.wisc.my.restproxy</groupId>
   <artifactId>json-proxy-service</artifactId>
   <packaging>jar</packaging>
-  <version>1.1-SNAPSHOT</version>
+  <version>1.0</version>
   <name>json-proxy-service</name>
   <url>https://github.com/UW-Madison-DoIT/json-proxy-service</url>
   <description>A simple JSON REST Proxy service</description>
@@ -34,7 +34,7 @@
         <connection>scm:git:git@github.com:UW-Madison-DoIT/json-proxy-service.git</connection>
         <developerConnection>scm:git:git@github.com:UW-Madison-DoIT/json-proxy-service.git</developerConnection>
         <url>https://github.com/UW-Madison-DoIT/json-proxy-service</url>
-      <tag>HEAD</tag>
+      <tag>json-proxy-service-1.0</tag>
   </scm>
 
   <distributionManagement>
