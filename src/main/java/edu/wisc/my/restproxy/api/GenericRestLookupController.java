@@ -18,8 +18,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import edu.wisc.my.restproxy.KeyUtils;
 import edu.wisc.my.restproxy.service.GenericRestLookupService;
+import edu.wisc.my.restproxy.web.ResourceProxyController;
 
-
+/**
+ * @deprecated see {@link ResourceProxyController} instead
+ */
+@Deprecated
 @RestController
 @PropertySource("classpath:/endpoint.properties")
 public class GenericRestLookupController {

@@ -4,6 +4,10 @@ import java.util.Map;
 
 import org.springframework.http.HttpMethod;
 
+/**
+ * @deprecated see {@link RestProxyDao} instead
+ */
+@Deprecated
 public interface GenericRestLookupDao {
 
   /**

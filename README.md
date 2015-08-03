@@ -9,12 +9,12 @@ This is an important component with a couple of use cases.
  * Picture this module deployed as a façade for ESB endpoints. `my.wisc.edu/esb/someservice/api/foo` . You could theoretically write 100% javascript apps against the proxy proxying ESB-provided JSON.
 
 ### Add Proxy Servlet to Existing Service
-+ Configure your `Spring application context` to collect annotation beans from edu.wisc.my.util
++ A Spring `@Configuration` class is provided, simply `@Import(edu.wisc.my.restproxy.config.RestProxyConfiguration)` on one of your existing `@Configuration` classes. If you are using Spring's XML configuration instead, add the following to your `Spring application context`:
 ```xml
     <mvc:annotation-driven/>
     <context:component-scan base-package="edu.wisc.my.restproxy"/>
 ```
-+ Setup a servlet 
++ Setup a servlet:
 ```xml
     <servlet>
         <servlet-name>json-proxy-api</servlet-name>

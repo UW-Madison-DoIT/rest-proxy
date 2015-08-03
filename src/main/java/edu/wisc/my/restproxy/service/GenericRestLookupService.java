@@ -2,6 +2,10 @@ package edu.wisc.my.restproxy.service;
 
 import java.util.Map;
 
+/**
+ * @deprecated see {@link RestProxyService}
+ */
+@Deprecated
 public interface GenericRestLookupService {
   /**
    * Gets information from the provided key and attributes
