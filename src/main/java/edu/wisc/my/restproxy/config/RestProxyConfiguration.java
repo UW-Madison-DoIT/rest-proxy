@@ -1,7 +1,7 @@
 /**
  * 
  */
-package edu.wisc.my.restproxy.api;
+package edu.wisc.my.restproxy.config;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
