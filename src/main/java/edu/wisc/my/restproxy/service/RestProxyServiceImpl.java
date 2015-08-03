@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
-import org.springframework.util.PropertyPlaceholderHelper;
 import org.springframework.web.servlet.HandlerMapping;
 
 import edu.wisc.my.restproxy.KeyUtils;
@@ -51,6 +50,8 @@ public class RestProxyServiceImpl implements RestProxyService {
    * </ul>
    * 
    * Delegates to {@link RestProxyDao#proxyRequest(ProxyRequestContext)}
+   * 
+   * @see KeyUtils#getProxyHeaders(Environment, String, HttpServletRequest)
    */
   @Override
   public Object proxyRequest(final String resourceKey, final HttpServletRequest request) {
@@ -76,34 +77,10 @@ public class RestProxyServiceImpl implements RestProxyService {
       .setAttributes(KeyUtils.getHeaders(env, request, resourceKey))
       .setHttpMethod(HttpMethod.valueOf(request.getMethod()))
       .setPassword(password != null ? password.getBytes() : null)
+      .setHeaders(KeyUtils.getProxyHeaders(env, resourceKey, request))
       .setUri(uri.toString())
       .setUsername(username);
 
-    String proxyHeadersValue = env.getProperty(resourceKey + ".proxyHeaders");
-    if(proxyHeadersValue != null) {
-      String [] proxyHeaders = StringUtils.split(proxyHeadersValue, ",");
-      for(String proxyHeader: proxyHeaders) {
-        String [] tokens = proxyHeader.split(":");
-        if(tokens.length == 2) {
-          PropertyPlaceholderHelper helper = new PropertyPlaceholderHelper("{", "}");
-          String value = helper.replacePlaceholders(tokens[1], new PropertyPlaceholderHelper.PlaceholderResolver() {
-            @Override
-            public String resolvePlaceholder(String placeholderName) {
-              Object attribute = request.getAttribute(placeholderName);
-              if(attribute instanceof String) {
-                return (String) attribute;
-              }
-              logger.warn("configuration error: could not resolve placeholder for attribute {} as it's not a String, it's a {}", placeholderName, attribute.getClass());
-              return null;
-            }
-          });
-
-          context.getHeaders().put(tokens[0], StringUtils.trim(value));
-        } else {
-          logger.warn("configuration error: can't split {} on ':', ignoring", proxyHeader);
-        }
-      }
-    }
     logger.debug("proxying request {}", context);
     return proxyDao.proxyRequest(context);
   }
