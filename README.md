@@ -1,6 +1,8 @@
 # json-proxy-service
 A Simple server side JSON proxy service written in Java
 
+[![Build Status](https://travis-ci.org/UW-Madison-DoIT/json-proxy-service.svg)](https://travis-ci.org/UW-Madison-DoIT/json-proxy-service)
+
 ### Purpose
 
 This is an important component with a couple of use cases.
