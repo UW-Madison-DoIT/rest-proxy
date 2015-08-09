@@ -23,7 +23,7 @@ public class ProxyRequestContext {
   private HttpMethod httpMethod = HttpMethod.GET;
   private String uri;
   private String username;
-  private byte[] password;
+  private String password;
   private Map<String, String> attributes = new HashMap<>();
   private Multimap<String, String> headers = ArrayListMultimap.create();
   /**
@@ -83,13 +83,13 @@ public class ProxyRequestContext {
   /**
    * @return the password
    */
-  public byte[] getPassword() {
+  public String getPassword() {
     return password;
   }
   /**
    * @param password the password to set
    */
-  public ProxyRequestContext setPassword(byte[] password) {
+  public ProxyRequestContext setPassword(String password) {
     this.password = password;
     return this;
   }
@@ -138,7 +138,7 @@ public class ProxyRequestContext {
     result = prime * result + ((attributes == null) ? 0 : attributes.hashCode());
     result = prime * result + ((headers == null) ? 0 : headers.hashCode());
     result = prime * result + ((httpMethod == null) ? 0 : httpMethod.hashCode());
-    result = prime * result + Arrays.hashCode(password);
+    result = prime * result + ((password == null) ? 0 : password.hashCode());
     result = prime * result + ((resourceKey == null) ? 0 : resourceKey.hashCode());
     result = prime * result + ((uri == null) ? 0 : uri.hashCode());
     result = prime * result + ((username == null) ? 0 : username.hashCode());
@@ -168,7 +168,10 @@ public class ProxyRequestContext {
       return false;
     if (httpMethod != other.httpMethod)
       return false;
-    if (!Arrays.equals(password, other.password))
+    if (password == null) {
+      if (other.password != null)
+        return false;
+    } else if (!password.equals(other.password))
       return false;
     if (resourceKey == null) {
       if (other.resourceKey != null)
@@ -187,4 +190,5 @@ public class ProxyRequestContext {
       return false;
     return true;
   }
+  
 }

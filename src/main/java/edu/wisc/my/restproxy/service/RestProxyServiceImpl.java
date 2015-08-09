@@ -55,7 +55,7 @@ public class RestProxyServiceImpl implements RestProxyService {
    */
   @Override
   public Object proxyRequest(final String resourceKey, final HttpServletRequest request) {
-    final String resourceRoot = env.getProperty(resourceKey + ".uri");
+    final String resourceRoot = env.getProperty(resourceKey + ".uri"); 
     if(StringUtils.isBlank(resourceRoot)) {
       logger.info("unknown resourceKey {}", resourceKey);
       return null;
@@ -76,7 +76,7 @@ public class RestProxyServiceImpl implements RestProxyService {
     ProxyRequestContext context = new ProxyRequestContext(resourceKey)
       .setAttributes(KeyUtils.getHeaders(env, request, resourceKey))
       .setHttpMethod(HttpMethod.valueOf(request.getMethod()))
-      .setPassword(password != null ? password.getBytes() : null)
+      .setPassword(password)
       .setHeaders(KeyUtils.getProxyHeaders(env, resourceKey, request))
       .setUri(uri.toString())
       .setUsername(username);
@@ -84,5 +84,4 @@ public class RestProxyServiceImpl implements RestProxyService {
     logger.debug("proxying request {}", context);
     return proxyDao.proxyRequest(context);
   }
-
 }

@@ -68,7 +68,7 @@ public class RestProxyServiceImplTest {
     env.setProperty("withCredentials.username", "user");
     env.setProperty("withCredentials.password", "pass");
     ProxyRequestContext expected = new ProxyRequestContext("withCredentials").setUri("http://localhost/foo")
-        .setUsername("user").setPassword("pass".getBytes());
+        .setUsername("user").setPassword("pass");
     
     when(proxyDao.proxyRequest(expected)).thenReturn(result);
     assertEquals(result, proxy.proxyRequest("withCredentials", request));
