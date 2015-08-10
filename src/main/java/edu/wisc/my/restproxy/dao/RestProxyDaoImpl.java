@@ -40,7 +40,10 @@ public class RestProxyDaoImpl implements RestProxyDao {
   public Object proxyRequest(ProxyRequestContext context) {
     HttpHeaders headers = new HttpHeaders();
     if(StringUtils.isNotBlank(context.getUsername()) && null != context.getPassword()) {
-      String creds = context.getUsername() + ":" + context.getPassword();
+      StringBuffer credsBuffer = new StringBuffer(context.getUsername());
+      credsBuffer.append(":");
+      credsBuffer.append(context.getPassword());
+      String creds = credsBuffer.toString();
       byte[] base64CredsBytes = Base64.encodeBase64(creds.getBytes());
       String base64Creds = new String(base64CredsBytes);
       headers.add("Authorization", "Basic " + base64Creds);
