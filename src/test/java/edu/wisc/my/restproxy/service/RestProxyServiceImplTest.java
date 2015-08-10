@@ -47,8 +47,11 @@ public class RestProxyServiceImplTest {
     
     MockHttpServletRequest request = new MockHttpServletRequest();
     request.setMethod("GET");
-    env.setProperty("control.uri", "http://localhost/foo");
-    ProxyRequestContext expected = new ProxyRequestContext("control").setUri("http://localhost/foo");
+    request.setAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE, "/control/foo");
+    env.setProperty("control.uri", "http://destination");
+
+    //note the resourceKey ('control' in this context) is stripped from the uri
+    ProxyRequestContext expected = new ProxyRequestContext("control").setUri("http://destination/foo");
     
     when(proxyDao.proxyRequest(expected)).thenReturn(result);
     assertEquals(result, proxy.proxyRequest("control", request));
