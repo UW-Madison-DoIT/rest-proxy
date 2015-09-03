@@ -4,6 +4,8 @@
 package edu.wisc.my.restproxy.service;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import javax.servlet.http.HttpServletRequest;
@@ -133,5 +135,37 @@ public class RestProxyServiceImplTest {
     
     when(proxyDao.proxyRequest(expected)).thenReturn(result);
     assertEquals(result, proxy.proxyRequest("withAdditionalPath", request));
+  }
+  /**
+   * Experiment for {@link RestProxyServiceImpl#proxyRequest(String, HttpServletRequest)}
+   * where the request has a 'application/json' body.
+   */
+  @Test
+  public void proxyRequest_withRequestBody() { 
+    MockHttpServletRequest request = new MockHttpServletRequest();
+    request.setMethod("PUT");
+    request.setAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE, "/withRequestBody/foo");
+    request.setContent("{ \"hello\": \"world\" }".getBytes());
+    request.addHeader("Content-Type", "application/json");
+    env.setProperty("withRequestBody.uri", "http://destination");
+
+    proxy.proxyRequest("withRequestBody", request);
+    verify(proxyDao).proxyRequest(any(ProxyRequestContext.class));
+  }
+  /**
+   * Experiment for {@link RestProxyServiceImpl#proxyRequest(String, HttpServletRequest)}
+   * where the request has a body but not the 'application/json' content-type.
+   */
+  @Test
+  public void proxyRequest_withRequestBody_notjson() { 
+    MockHttpServletRequest request = new MockHttpServletRequest();
+    request.setMethod("PUT");
+    request.setAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE, "/notjson/foo");
+    request.setContent("<html></html>".getBytes());
+    request.addHeader("Content-Type", "text/html");
+    env.setProperty("notjson.uri", "http://destination");
+
+    proxy.proxyRequest("notjson", request);
+    verify(proxyDao).proxyRequest(any(ProxyRequestContext.class));
   }
 }

@@ -3,7 +3,6 @@
  */
 package edu.wisc.my.restproxy;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,6 +25,7 @@ public class ProxyRequestContext {
   private String password;
   private Map<String, String> attributes = new HashMap<>();
   private Multimap<String, String> headers = ArrayListMultimap.create();
+  private RequestBody requestBody;
   /**
    * 
    * @param resourceKey required
@@ -117,6 +117,19 @@ public class ProxyRequestContext {
    */
   public ProxyRequestContext setHeaders(Multimap<String, String> headers) {
     this.headers = headers;
+    return this;
+  }
+  /**
+   * @return the requestBody
+   */
+  public RequestBody getRequestBody() {
+    return requestBody;
+  }
+  /**
+   * @param requestBody the requestBody to set
+   */
+  public ProxyRequestContext setRequestBody(RequestBody requestBody) {
+    this.requestBody = requestBody;
     return this;
   }
   /* (non-Javadoc)
