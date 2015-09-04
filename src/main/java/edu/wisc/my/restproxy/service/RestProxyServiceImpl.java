@@ -14,10 +14,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.servlet.HandlerMapping;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.net.HttpHeaders;
 
 import edu.wisc.my.restproxy.KeyUtils;
 import edu.wisc.my.restproxy.ProxyRequestContext;
@@ -36,7 +38,6 @@ public class RestProxyServiceImpl implements RestProxyService {
   private Environment env;
   @Autowired
   private RestProxyDao proxyDao;
-  private ObjectMapper objectMapper = new ObjectMapper();
   private static final Logger logger = LoggerFactory.getLogger(RestProxyServiceImpl.class);
 
   /**
@@ -46,12 +47,6 @@ public class RestProxyServiceImpl implements RestProxyService {
    */
   void setEnv(Environment env) {
     this.env = env;
-  }
-  /**
-   * @param objectMapper the objectMapper to set
-   */
-  public void setObjectMapper(ObjectMapper objectMapper) {
-    this.objectMapper = objectMapper;
   }
   /**
    * {@inheritDoc}
@@ -89,7 +84,6 @@ public class RestProxyServiceImpl implements RestProxyService {
     String username = env.getProperty(resourceKey + ".username");
     String password = env.getProperty(resourceKey + ".password");
 
-   
     ProxyRequestContext context = new ProxyRequestContext(resourceKey)
       .setAttributes(KeyUtils.getHeaders(env, request, resourceKey))
       .setHttpMethod(HttpMethod.valueOf(request.getMethod()))
@@ -101,11 +95,14 @@ public class RestProxyServiceImpl implements RestProxyService {
     RequestBody requestBody = null;
     try {
       InputStream inputStream = request.getInputStream();
-      final String contentType = request.getHeader("Content-Type");
-      if(inputStream != null && "application/json".equals(contentType)) {
-        Object body = objectMapper.readValue(request.getInputStream(), Object.class);
-        requestBody = new RequestBody().setBody(body).setContentType(contentType);
-        context.setRequestBody(requestBody).getHeaders().put("Content-Type", contentType);
+      final String contentType = request.getHeader(HttpHeaders.CONTENT_TYPE);
+      if(inputStream != null && MediaType.APPLICATION_JSON_VALUE.equals(contentType)) {
+        requestBody = new RequestBody()
+          .setBody(FileCopyUtils.copyToByteArray(inputStream))
+          .setContentType(contentType);
+        
+        context.setRequestBody(requestBody)
+          .getHeaders().put(HttpHeaders.CONTENT_TYPE, contentType);
       }
     } catch (IOException e) {
       logger.debug("caught IOException attempting to check request inputStream, no requestBody provided", e);

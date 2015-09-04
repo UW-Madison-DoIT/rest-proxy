@@ -10,18 +10,18 @@ package edu.wisc.my.restproxy;
  */
 public class RequestBody {
 
-  private Object body;
+  private byte[] body;
   private String contentType;
   /**
    * @return the body
    */
-  public Object getBody() {
+  public byte[] getBody() {
     return body;
   }
   /**
    * @param body the body to set
    */
-  public RequestBody setBody(Object body) {
+  public RequestBody setBody(byte[] body) {
     this.body = body;
     return this;
   }
