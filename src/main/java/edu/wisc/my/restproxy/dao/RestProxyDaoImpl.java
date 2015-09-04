@@ -53,7 +53,8 @@ public class RestProxyDaoImpl implements RestProxyDao {
       headers.add(entry.getKey(), entry.getValue());
     }
     
-    HttpEntity<String> request = new HttpEntity<String>(headers);
+    HttpEntity<Object> request = context.getRequestBody() == null ? new HttpEntity<Object>(headers) : new HttpEntity<Object>(context.getRequestBody().getBody(), headers);
+    
     ResponseEntity<Object> response = restTemplate.exchange(context.getUri(), 
         context.getHttpMethod(), request, Object.class, context.getAttributes());
     logger.trace("completed request for {}, response= {}", context, response);
