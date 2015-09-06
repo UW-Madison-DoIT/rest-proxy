@@ -3,6 +3,8 @@
  */
 package edu.wisc.my.restproxy.dao;
 
+import org.springframework.http.ResponseEntity;
+
 import edu.wisc.my.restproxy.ProxyRequestContext;
 
 /**
@@ -13,9 +15,8 @@ import edu.wisc.my.restproxy.ProxyRequestContext;
 public interface RestProxyDao {
 
   /**
-   * 
    * @param proxyRequestContext
-   * @return the response of the proxied request, serialized to an {@link Object}
+   * @return the {@link ResponseEntity} of the proxied request.
    */
-  public Object proxyRequest(ProxyRequestContext proxyRequestContext);
+  public ResponseEntity<Object> proxyRequest(ProxyRequestContext proxyRequestContext);
 }

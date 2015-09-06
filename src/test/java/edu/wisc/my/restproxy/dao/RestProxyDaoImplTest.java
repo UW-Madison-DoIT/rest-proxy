@@ -74,9 +74,6 @@ public class RestProxyDaoImplTest {
     headers.add("Authorization", "Basic " + base64Creds);
     
     HttpEntity<String> expectedRequest = new HttpEntity<String>(headers);
-    Object expectedResponseBody = Mockito.mock(Object.class);
-    Mockito.when(expectedResponse.getBody()).thenReturn(expectedResponseBody);
-    
     Mockito.when(
         restTemplate.exchange(
             Matchers.eq(context.getUri()), 
@@ -95,6 +92,6 @@ public class RestProxyDaoImplTest {
         Matchers.eq(Object.class), 
         Matchers.eq(context.getAttributes())
     );
-    assertEquals(expectedResponseBody, proxyResponse);
+    assertEquals(expectedResponse, proxyResponse);
     }
 }

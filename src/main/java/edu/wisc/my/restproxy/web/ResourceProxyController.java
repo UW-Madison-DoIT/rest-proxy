@@ -8,6 +8,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -20,7 +23,7 @@ import edu.wisc.my.restproxy.service.RestProxyService;
  * 
  * @author Nicholas Blair
  */
-@RestController
+@Controller
 public class ResourceProxyController {
 
   @Autowired
@@ -38,15 +41,19 @@ public class ResourceProxyController {
    * 
    */
   @RequestMapping("/{key}/**")
-  public @ResponseBody Object proxyResource(HttpServletRequest request, 
+  public  @ResponseBody Object proxyResource(HttpServletRequest request, 
       HttpServletResponse response,
       @PathVariable String key) {
-    Object result = proxyService.proxyRequest(key, request);     
-    if(result == null) {
-      response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-      return null;
-    } else {
-      return result;
+    ResponseEntity<Object> responseEntity = proxyService.proxyRequest(key, request);   
+    if(responseEntity != null) {
+      HttpStatus statusCode = responseEntity.getStatusCode();
+      response.setStatus(statusCode.value());
+      if(responseEntity.hasBody()) {
+        return responseEntity.getBody();
+      }
+    }else {
+      response.setStatus(HttpStatus.NOT_FOUND.value());
     }
+    return null;    
   }
 }
