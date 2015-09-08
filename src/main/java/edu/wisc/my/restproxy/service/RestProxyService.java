@@ -5,6 +5,8 @@ package edu.wisc.my.restproxy.service;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.http.ResponseEntity;
+
 import edu.wisc.my.restproxy.ProxyRequestContext;
 
 /**
@@ -19,7 +21,7 @@ public interface RestProxyService {
    * 
    * @param resourceKey
    * @param request
-   * @return the Object returned from the REST API, serialized to an {@link Object} (may return null)
+   * @return the {@link ResponseEntity} returned from the REST API (may return null)
    */
-  public Object proxyRequest(String resourceKey, HttpServletRequest request);
+  public ResponseEntity<Object> proxyRequest(String resourceKey, HttpServletRequest request);
 }

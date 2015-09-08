@@ -8,6 +8,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -20,7 +23,7 @@ import edu.wisc.my.restproxy.service.RestProxyService;
  * 
  * @author Nicholas Blair
  */
-@RestController
+@Controller
 public class ResourceProxyController {
 
   @Autowired
@@ -34,19 +37,27 @@ public class ResourceProxyController {
   void setEnv(Environment env) {
     this.env = env;
   }
+
   /**
+   * Proxies the request and then calls {@link HttpServletResponse#setStatus(int)} with the
+   * {@link HttpStatus} recieved. If the proxy response contains content it's simply returned here
+   * as an {@link Object}.
    * 
+   * @param request
+   * @param response
+   * @param key
+   * @return the body of the proxy response or null.
    */
   @RequestMapping("/{key}/**")
-  public @ResponseBody Object proxyResource(HttpServletRequest request, 
+  public  @ResponseBody Object proxyResource(HttpServletRequest request, 
       HttpServletResponse response,
       @PathVariable String key) {
-    Object result = proxyService.proxyRequest(key, request);     
-    if(result == null) {
-      response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+    ResponseEntity<Object> responseEntity = proxyService.proxyRequest(key, request);   
+    if(responseEntity == null || responseEntity.getStatusCode() == null) {
+      response.setStatus(HttpStatus.NOT_FOUND.value());
       return null;
-    } else {
-      return result;
     }
+    response.setStatus(responseEntity.getStatusCode().value());
+    return responseEntity.hasBody() ? responseEntity.getBody() : null;  
   }
 }

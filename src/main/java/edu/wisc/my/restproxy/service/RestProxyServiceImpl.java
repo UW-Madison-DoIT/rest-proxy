@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.servlet.HandlerMapping;
@@ -62,7 +62,7 @@ public class RestProxyServiceImpl implements RestProxyService {
    * @see KeyUtils#getProxyHeaders(Environment, String, HttpServletRequest)
    */
   @Override
-  public Object proxyRequest(final String resourceKey, final HttpServletRequest request) {
+  public ResponseEntity<Object> proxyRequest(final String resourceKey, final HttpServletRequest request) {
     final String resourceRoot = env.getProperty(resourceKey + ".uri"); 
     if(StringUtils.isBlank(resourceRoot)) {
       logger.info("unknown resourceKey {}", resourceKey);
@@ -95,11 +95,15 @@ public class RestProxyServiceImpl implements RestProxyService {
     RequestBody requestBody = null;
     try {
       InputStream inputStream = request.getInputStream();
-      final String contentType = request.getHeader(HttpHeaders.CONTENT_TYPE);
-      if(inputStream != null && MediaType.APPLICATION_JSON_VALUE.equals(contentType)) {
+      final String contentType = request.getContentType();
+      int contentLength = request.getContentLength();
+      if(inputStream != null && contentLength > 0) {
         requestBody = new RequestBody()
-          .setBody(FileCopyUtils.copyToByteArray(inputStream))
-          .setContentType(contentType);
+          .setBody(FileCopyUtils.copyToByteArray(inputStream));
+        
+        if(StringUtils.isNotBlank(contentType)) {
+          requestBody.setContentType(contentType);
+        }
         
         context.setRequestBody(requestBody)
           .getHeaders().put(HttpHeaders.CONTENT_TYPE, contentType);

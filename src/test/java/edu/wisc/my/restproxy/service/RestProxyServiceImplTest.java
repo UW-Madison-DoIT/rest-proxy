@@ -16,11 +16,14 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.mock.env.MockEnvironment;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.servlet.HandlerMapping;
 
 import edu.wisc.my.restproxy.ProxyRequestContext;
+import edu.wisc.my.restproxy.ValidationResult;
 import edu.wisc.my.restproxy.dao.RestProxyDao;
 
 /**
@@ -45,7 +48,7 @@ public class RestProxyServiceImplTest {
    */
   @Test
   public void proxyRequest_control() {
-    final Object result = new Object();
+    final ResponseEntity<Object> result = new ResponseEntity<Object>(new Object(), HttpStatus.OK);
     
     MockHttpServletRequest request = new MockHttpServletRequest();
     request.setMethod("GET");
@@ -60,12 +63,33 @@ public class RestProxyServiceImplTest {
   }
   
   /**
+   * Test simulates a proxy request which fails with a http 400 error.  
+   * An error like this could be encountered if you were to post invalid data to a form.
+   * Test verifies the HttpStatus AND the body (which likely contins validation error message) are passed back to the client.
+   */
+  @Test
+  public void proxyRequest_failsWithBadRequest() {
+    ValidationResult validationFailure = new ValidationResult(false, "you didn't check the box");
+    final ResponseEntity<Object> expectedResult = new ResponseEntity<Object>(validationFailure, HttpStatus.BAD_REQUEST);
+    MockHttpServletRequest request = new MockHttpServletRequest();
+    request.setMethod("POST");
+    request.setAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE, "/control/foo");
+    request.setContent("{ \"hello\": \"world\" }".getBytes());
+    request.addHeader("Content-Type", "application/json");
+    env.setProperty("control.uri", "http://destination");
+    when(proxyDao.proxyRequest(any(ProxyRequestContext.class))).thenReturn(expectedResult);
+    ResponseEntity<Object> result = proxy.proxyRequest("control", request);
+    assertEquals(expectedResult, result);
+    assertEquals(validationFailure, result.getBody());
+  }
+  
+  /**
    * Experiment for {@link RestProxyServiceImpl#proxyRequest(String, HttpServletRequest)}, confirms
    * expected behavior when the configuration contains credentials.
    */
   @Test
   public void proxyRequest_withCredentials() {
-    final Object result = new Object();
+    final ResponseEntity<Object> result = new ResponseEntity<Object>(new Object(), HttpStatus.OK);
     
     MockHttpServletRequest request = new MockHttpServletRequest();
     request.setMethod("GET");
@@ -85,7 +109,7 @@ public class RestProxyServiceImplTest {
    */
   @Test
   public void proxyRequest_withAdditionalHeader() {
-    final Object result = new Object();
+    final ResponseEntity<Object> result = new ResponseEntity<Object>(new Object(), HttpStatus.OK);
     
     MockHttpServletRequest request = new MockHttpServletRequest();
     request.setAttribute("wiscedupvi", "UW111A111");
@@ -105,7 +129,7 @@ public class RestProxyServiceImplTest {
    */
   @Test
   public void proxyRequest_withAdditionalHeaders_andPlaceholders() {
-    final Object result = new Object();
+    final ResponseEntity<Object> result = new ResponseEntity<Object>(new Object(), HttpStatus.OK);
     
     MockHttpServletRequest request = new MockHttpServletRequest();
     request.setAttribute("wiscedupvi", "UW111A111");
@@ -125,7 +149,7 @@ public class RestProxyServiceImplTest {
    */
   @Test
   public void proxyRequest_withAdditionalPath() {
-    final Object result = new Object();
+    final ResponseEntity<Object> result = new ResponseEntity<Object>(new Object(), HttpStatus.OK);
     
     MockHttpServletRequest request = new MockHttpServletRequest();
     request.setMethod("GET");
