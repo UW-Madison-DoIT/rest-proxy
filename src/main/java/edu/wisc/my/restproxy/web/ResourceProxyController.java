@@ -37,23 +37,27 @@ public class ResourceProxyController {
   void setEnv(Environment env) {
     this.env = env;
   }
+
   /**
+   * Proxies the request and then calls {@link HttpServletResponse#setStatus(int)} with the
+   * {@link HttpStatus} recieved. If the proxy response contains content it's simply returned here
+   * as an {@link Object}.
    * 
+   * @param request
+   * @param response
+   * @param key
+   * @return the body of the proxy response or null.
    */
   @RequestMapping("/{key}/**")
   public  @ResponseBody Object proxyResource(HttpServletRequest request, 
       HttpServletResponse response,
       @PathVariable String key) {
     ResponseEntity<Object> responseEntity = proxyService.proxyRequest(key, request);   
-    if(responseEntity != null) {
-      HttpStatus statusCode = responseEntity.getStatusCode();
-      response.setStatus(statusCode.value());
-      if(responseEntity.hasBody()) {
-        return responseEntity.getBody();
-      }
-    }else {
+    if(responseEntity == null || responseEntity.getStatusCode() == null) {
       response.setStatus(HttpStatus.NOT_FOUND.value());
+      return null;
     }
-    return null;    
+    response.setStatus(responseEntity.getStatusCode().value());
+    return responseEntity.hasBody() ? responseEntity.getBody() : null;  
   }
 }
