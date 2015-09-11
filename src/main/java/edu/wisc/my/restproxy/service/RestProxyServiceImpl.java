@@ -80,6 +80,11 @@ public class RestProxyServiceImpl implements RestProxyService {
       }
       uri.append(resourcePath);
     }
+    
+    if(StringUtils.isNotBlank(request.getQueryString())) {
+      uri.append("?");
+      uri.append(request.getQueryString());
+    }
 
     String username = env.getProperty(resourceKey + ".username");
     String password = env.getProperty(resourceKey + ".password");
