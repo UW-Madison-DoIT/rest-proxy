@@ -62,6 +62,22 @@ public class RestProxyServiceImplTest {
     assertEquals(result, proxy.proxyRequest("control", request));
   }
   
+  @Test
+  public void withQueryString() {
+    final ResponseEntity<Object> result = new ResponseEntity<Object>(new Object(), HttpStatus.OK);
+    
+    MockHttpServletRequest request = new MockHttpServletRequest();
+    request.setMethod("GET");
+    request.setAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE, "/control/foo");
+    request.setQueryString("search=bar&name=bucky");
+    env.setProperty("control.uri", "http://destination");
+
+    //note the resourceKey ('control' in this context) is stripped from the uri
+    ProxyRequestContext expected = new ProxyRequestContext("control").setUri("http://destination/foo?search=bar&name=bucky");
+    
+    when(proxyDao.proxyRequest(expected)).thenReturn(result);
+    assertEquals(result, proxy.proxyRequest("control", request));
+  }
   /**
    * Test simulates a proxy request which fails with a http 400 error.  
    * An error like this could be encountered if you were to post invalid data to a form.
