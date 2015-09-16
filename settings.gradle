@@ -1,0 +1,3 @@
+rootProject.name = 'json-proxy-parent'
+include 'json-proxy-service'
+include 'json-proxy-core'

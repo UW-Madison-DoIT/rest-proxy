@@ -1,0 +1,32 @@
+#key.uri                : URI for service with {attr} for attributes
+#key.username           : the username to login to service (basic auth) *
+#key.password           : the password for the service (basic auth)     *
+#key.attributes         : the csv of attributes
+#key.proxyHeaders		: a comma separated list of headers to add output. Can put placeholders for values to get local request attributes.
+#key.cache              : how long to cache the information for that URI (with variables replaced) - not implemented yet
+#
+# * : not required
+
+#Wiscmail lookup
+wiscmaillookup.uri=https://email-server.wisc.edu/some.json?action=listaccountInfo&account={uid}
+wiscmaillookup.username=
+wiscmaillookup.password=
+wiscmaillookup.attributes=uid
+
+#new stuff feed
+newstuff.uri=https://example.com/feed.json?username={uid}&name={prefname}
+newstuff.username=
+newstuff.password=
+newstuff.attributes=uid,prefname
+
+#subreddit feed example
+uwmadisonreddit.uri=https://www.reddit.com/r/uwmadison/hot.json
+uwmadisonreddit.username=
+uwmadisonreddit.password=
+uwmadisonreddit.attributes=
+
+# proxyHeaders example
+someservice.uri=http://somewhere.wisc.edu/foo
+someservice.username=user
+someservice.password=pass
+someservice.proxyHeaders=On-Behalf-Of: {wiscedupvi},Some-Other-Header: staticvalue

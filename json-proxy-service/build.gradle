@@ -1,0 +1,19 @@
+description = "A simple standalone JSON proxy server"
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.2.5.RELEASE")
+    }
+}
+apply plugin: 'spring-boot'
+mainClassName = "edu.wisc.my.restproxy.Server"
+
+dependencies {
+    compile 'org.codehaus.groovy:groovy-all:2.4.4'
+    compile 'org.springframework.boot:spring-boot-starter-web:1.2.5.RELEASE'
+    compile project(':json-proxy-core')
+}
+
