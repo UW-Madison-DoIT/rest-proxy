@@ -1,7 +1,6 @@
-@Grab("edu.wisc.my.restproxy:json-proxy-service:1.0")
+@Grab("edu.wisc.my.restproxy:json-proxy-service:1.1.6-SNAPSHOT")
 
 @ComponentScan("edu.wisc.my.restproxy")
 @RestController
-@RequestMapping("/")
-class ProxyService extends edu.wisc.my.restproxy.api.GenericRestLookupController {}
+class ProxyService {}
 

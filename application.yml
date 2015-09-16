@@ -6,7 +6,7 @@ info:
     app:
         name: proxy-service
         version: 0.1
-        grailsVersion: 3.0.2
+        grailsVersion: 3.0.7
 spring:
     groovy:
         template:
