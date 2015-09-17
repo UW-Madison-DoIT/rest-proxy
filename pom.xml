@@ -1,18 +1,18 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>edu.wisc.my.restproxy</groupId>
-  <artifactId>json-proxy-service</artifactId>
+  <artifactId>rest-proxy</artifactId>
   <packaging>jar</packaging>
   <version>2.0.0-SNAPSHOT</version>
-  <name>json-proxy-service</name>
-  <url>https://github.com/UW-Madison-DoIT/json-proxy-service</url>
+  <name>rest-proxy</name>
+  <url>https://github.com/UW-Madison-DoIT/rest-proxy</url>
   <description>A simple JSON REST Proxy service</description>
   
   <developers>
     <developer>
         <email>my-admin@lists.wisc.edu</email>
         <organization>UW-Madison</organization>
-        <url>https://github.com/UW-Madison-DoIT/angularjs-portal</url>
+        <url>https://github.com/UW-Madison-DoIT/rest-proxy</url>
         <name>My UW Dev Team</name>
     </developer>
   </developers>
@@ -31,9 +31,9 @@
   </licenses>
   
   <scm>
-        <connection>scm:git:git@github.com:UW-Madison-DoIT/json-proxy-service.git</connection>
-        <developerConnection>scm:git:git@github.com:UW-Madison-DoIT/json-proxy-service.git</developerConnection>
-        <url>https://github.com/UW-Madison-DoIT/json-proxy-service</url>
+        <connection>scm:git:git@github.com:UW-Madison-DoIT/rest-proxy.git</connection>
+        <developerConnection>scm:git:git@github.com:UW-Madison-DoIT/rest-proxy.git</developerConnection>
+        <url>https://github.com/UW-Madison-DoIT/rest-proxy</url>
       <tag>HEAD</tag>
   </scm>
 
