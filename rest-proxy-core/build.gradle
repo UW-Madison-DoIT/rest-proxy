@@ -1,4 +1,4 @@
-description = "A simple server-side JSON proxy library"
+description = "A simple server-side REST proxy library"
 
 sourceCompatibility = 1.7
 targetCompatibility = 1.7

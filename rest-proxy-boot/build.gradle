@@ -1,4 +1,4 @@
-description = "A simple standalone JSON proxy server"
+description = "A simple standalone REST proxy server"
 
 buildscript {
     repositories {
@@ -14,6 +14,6 @@ mainClassName = "edu.wisc.my.restproxy.Server"
 dependencies {
     compile 'org.codehaus.groovy:groovy-all:2.4.4'
     compile 'org.springframework.boot:spring-boot-starter-web:1.2.5.RELEASE'
-    compile project(':json-proxy-core')
+    compile project(':rest-proxy-core')
 }
 
