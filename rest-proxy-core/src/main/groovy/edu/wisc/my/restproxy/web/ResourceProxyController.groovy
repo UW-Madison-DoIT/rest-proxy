@@ -1,7 +1,6 @@
-/**
- * 
- */
-package edu.wisc.my.restproxy.web;
+package edu.wisc.my.restproxy.web
+
+import groovy.transform.CompileStatic;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,9 +19,10 @@ import edu.wisc.my.restproxy.service.RestProxyService;
 
 /**
  * {@link RestController} for proxying other REST resources.
- * 
+ *
  * @author Nicholas Blair
  */
+@CompileStatic
 @Controller
 public class ResourceProxyController {
 
@@ -42,22 +42,22 @@ public class ResourceProxyController {
    * Proxies the request and then calls {@link HttpServletResponse#setStatus(int)} with the
    * {@link HttpStatus} recieved. If the proxy response contains content it's simply returned here
    * as an {@link Object}.
-   * 
+   *
    * @param request
    * @param response
    * @param key
    * @return the body of the proxy response or null.
    */
   @RequestMapping("/{key}/**")
-  public  @ResponseBody Object proxyResource(HttpServletRequest request, 
+  public @ResponseBody Object proxyResource(HttpServletRequest request,
       HttpServletResponse response,
       @PathVariable String key) {
-    ResponseEntity<Object> responseEntity = proxyService.proxyRequest(key, request);   
+    ResponseEntity<Object> responseEntity = proxyService.proxyRequest(key, request);
     if(responseEntity == null || responseEntity.getStatusCode() == null) {
       response.setStatus(HttpStatus.NOT_FOUND.value());
       return null;
     }
     response.setStatus(responseEntity.getStatusCode().value());
-    return responseEntity.hasBody() ? responseEntity.getBody() : null;  
+    return responseEntity.hasBody() ? responseEntity.getBody() : null;
   }
 }

@@ -1,4 +1,6 @@
-package edu.wisc.my.restproxy.service;
+package edu.wisc.my.restproxy.service
+
+import groovy.transform.CompileStatic;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -25,6 +27,7 @@ import edu.wisc.my.restproxy.dao.RestProxyDao;
  *
  * @author Nicholas Blair
  */
+@CompileStatic
 @Service
 public class RestProxyServiceImpl implements RestProxyService {
 

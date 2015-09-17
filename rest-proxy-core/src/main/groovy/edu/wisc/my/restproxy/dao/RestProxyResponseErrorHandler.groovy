@@ -1,10 +1,6 @@
-/**
- *
- */
-package edu.wisc.my.restproxy.dao;
+package edu.wisc.my.restproxy.dao
 
-import java.io.IOException;
-
+import groovy.transform.CompileStatic;
 import org.springframework.http.client.ClientHttpRequest;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.web.client.ResponseErrorHandler;
@@ -19,6 +15,7 @@ import org.springframework.web.client.ResponseErrorHandler;
  *
  * @author Collin Cudd
  */
+@CompileStatic
 public class RestProxyResponseErrorHandler implements ResponseErrorHandler {
 
   /*

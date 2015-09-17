@@ -1,7 +1,6 @@
-package edu.wisc.my.restproxy;
+package edu.wisc.my.restproxy
 
-import java.util.HashMap;
-import java.util.Map;
+import groovy.transform.CompileStatic;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -14,6 +13,7 @@ import org.springframework.util.PropertyPlaceholderHelper;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 
+@CompileStatic
 public final class KeyUtils {
 
   private static final String END_PLACEHOLDER = "}";
@@ -21,9 +21,9 @@ public final class KeyUtils {
 
   private KeyUtils() {
   }
-  
+
   private static final Logger logger = LoggerFactory.getLogger(KeyUtils.class);
-  
+
   public static Map<String, String> getHeaders(Environment env, HttpServletRequest request, String key) {
     HashMap <String, String> map = new HashMap<String, String>();
     String attributes = env.getProperty(key + ".attributes");
@@ -37,18 +37,18 @@ public final class KeyUtils {
 
   /**
    * Utility method for extracting the Proxy Headers for a request.
-   * 
+   *
    * The configuration option '{key}.proxyHeaders' is used to specify a multi-valued list of HTTP headers to add to the
-   * outbound request to '{key}.uri'. 
-   * 
+   * outbound request to '{key}.uri'.
+   *
    * Example:
    * <pre>
    someservice.proxyHeaders=On-Behalf-Of: {wiscedupvi},Some-Other-Header: staticvalue
    </pre>
-   * 
-   * Implementers can specify either static values ('Some-Other-Header: staticvalue') or use placeholders to relay 
+   *
+   * Implementers can specify either static values ('Some-Other-Header: staticvalue') or use placeholders to relay
    * {@link HttpServletRequest#getAttribute(String)} values ('On-Behalf-Of: {wiscedupvi}')
-   * 
+   *
    * @param env
    * @param resourceKey
    * @param request
