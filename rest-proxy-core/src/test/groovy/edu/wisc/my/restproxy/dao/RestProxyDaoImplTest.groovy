@@ -1,9 +1,4 @@
-/**
- *
- */
 package edu.wisc.my.restproxy.dao
-
-import org.junit.Ignore;
 
 import static org.junit.Assert.assertEquals;
 
@@ -24,7 +19,9 @@ import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.client.RestTemplate;
 
 import edu.wisc.my.restproxy.KeyUtils;
-import edu.wisc.my.restproxy.ProxyRequestContext;
+import edu.wisc.my.restproxy.ProxyRequestContext
+
+import static org.mockito.Mockito.when;
 
 /**
  * Tests for {@link RestProxyDaoImpl}.
@@ -63,7 +60,6 @@ public class RestProxyDaoImplTest {
   /**
    * Control test for {@link RestProxyDaoImpl#proxyRequest(ProxyRequestContext)}
    */
-  @Ignore
   @Test
   public void proxyRequest_control() {
     ProxyRequestContext context = getContext();
@@ -77,12 +73,12 @@ public class RestProxyDaoImplTest {
     headers.add("Authorization", "Basic " + base64Creds);
 
     HttpEntity<String> expectedRequest = new HttpEntity<String>(headers);
-    Mockito.when(
+    when(
         restTemplate.exchange(
             Matchers.eq(context.getUri()),
             Matchers.eq(context.getHttpMethod()),
             Matchers.eq(expectedRequest),
-            Matchers.eq(Object.class),
+            (Class)Matchers.anyObject(),
             Matchers.eq(context.getAttributes())
         )
     ).thenReturn(expectedResponse);
@@ -92,9 +88,9 @@ public class RestProxyDaoImplTest {
         Matchers.eq(context.getUri()),
         Matchers.eq(context.getHttpMethod()),
         Matchers.eq(expectedRequest),
-        Matchers.eq(Object.class),
+        (Class)Matchers.anyObject(),
         Matchers.eq(context.getAttributes())
     );
     assertEquals(expectedResponse, proxyResponse);
-    }
+  }
 }

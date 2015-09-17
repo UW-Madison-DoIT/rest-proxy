@@ -1,6 +1,3 @@
-/**
- *
- */
 package edu.wisc.my.restproxy;
 
 /**
@@ -11,7 +8,7 @@ public class ValidationResult {
 
   boolean success;
   String message;
-  public ValidationResult(){}
+
   /**
    * @param success
    * @param message

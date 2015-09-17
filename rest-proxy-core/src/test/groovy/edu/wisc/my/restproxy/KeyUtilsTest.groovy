@@ -1,6 +1,3 @@
-/**
- * 
- */
 package edu.wisc.my.restproxy;
 
 import static org.junit.Assert.assertEquals;
@@ -17,7 +14,7 @@ import com.google.common.collect.Multimap;
 
 /**
  * Tests for {@link KeyUtils}.
- * 
+ *
  * @author Nicholas Blair
  */
 public class KeyUtilsTest {
