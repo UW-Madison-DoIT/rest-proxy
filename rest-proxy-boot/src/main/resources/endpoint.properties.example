@@ -30,3 +30,7 @@ someservice.uri=http://somewhere.wisc.edu/foo
 someservice.username=user
 someservice.password=pass
 someservice.proxyHeaders=On-Behalf-Of: {wiscedupvi},Some-Other-Header: staticvalue
+
+#todos placeholder example
+todos.uri=http://jsonplaceholder.typicode.com/todos
+
