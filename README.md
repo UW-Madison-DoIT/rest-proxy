@@ -3,6 +3,10 @@ A Simple server side JSON proxy service written in Java
 
 [![Build Status](https://travis-ci.org/UW-Madison-DoIT/json-proxy-service.svg)](https://travis-ci.org/UW-Madison-DoIT/json-proxy-service)
 
+### Versioning
+
+We are using [semantic versioning](http://semver.org/) for this project.
+
 ### Purpose
 
 This is an important component with a couple of use cases.
