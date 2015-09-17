@@ -78,7 +78,7 @@ public class RestProxyServiceImplTest {
   /**
    * Test simulates a proxy request which fails with a http 400 error.
    * An error like this could be encountered if you were to post invalid data to a form.
-   * Test verifies the HttpStatus AND the body (which likely contins validation error message) are passed back to the client.
+   * Test verifies the HttpStatus AND the body (which likely contains validation error message) are passed back to the client.
    */
   @Test
   public void proxyRequest_failsWithBadRequest() {

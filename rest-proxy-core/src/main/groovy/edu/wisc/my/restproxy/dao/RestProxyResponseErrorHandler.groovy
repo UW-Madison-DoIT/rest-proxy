@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package edu.wisc.my.restproxy.dao;
 
@@ -12,18 +12,18 @@ import org.springframework.web.client.ResponseErrorHandler;
 /**
  * {@link ResponseErrorHandler} implementation that does nothing and considers every
  * {@link ClientHttpRequest} a success.
- * 
- * This class does nothing because RestProxy is responsible soley for relaying requests and
+ *
+ * This class does nothing because RestProxy is responsible solely for relaying requests and
  * responses. We don't care what's in the response, we just forward it on. It's up to the client to deal
  * with responses, whether they're successes or errors.
- * 
+ *
  * @author Collin Cudd
  */
 public class RestProxyResponseErrorHandler implements ResponseErrorHandler {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see
    * org.springframework.web.client.ResponseErrorHandler#handleError(org.springframework.http.client
    * .ClientHttpResponse)

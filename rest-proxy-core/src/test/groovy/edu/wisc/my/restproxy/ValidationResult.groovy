@@ -4,7 +4,7 @@
 package edu.wisc.my.restproxy;
 
 /**
- * Just an example of an object that could be retruned by rest api.
+ * Just an example of an object that could be returned by rest api.
  * @author Collin Cudd
  */
 public class ValidationResult {
