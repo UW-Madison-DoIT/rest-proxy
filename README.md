@@ -33,15 +33,20 @@ This is an important component with a couple of use cases.
 
 ### Run Standalone Microservice
 
-#### Prerequisites
- * [Grails 3.0.x](https://grails.org/)
-
 #### Running
+* Supply endpoint configuration - you can copy application.properties.example to get started, or add a command-line flag, e.g. `--todos.uri=http://jsonplaceholder.typicode.com/todos`
 * Run `gradle bootRun` to start the server
-* [Verify it works](localhost:8080/todos.json)
+* [Verify in your browser](localhost:8080/todos)
 
 __OR__
 
 * Run `gradle build` to build a standalone jar
 * Start the server by running `java -jar rest-proxy-boot/build/rest-proxy-boot-<VERSION>.jar`
+
+### Releasing to Artifact Repository
+
+#### Manually
+Only authorized users can perform the release.  Contact one of the core contributors if you think you should have access.
+
+* Run `gradle uploadArchives` and provide Sonatype credentials when prompted (if they are not already supplied in ~/.gradle/gradle.properties).  This will build both projects and generate pomfiles, javadoc, test, and sources artifacts, and then upload them to the Sonatype Nexus repository.
 
