@@ -1,0 +1,88 @@
+buildscript {
+    repositories { jcenter() }
+    dependencies { classpath 'com.bmuschko:gradle-nexus-plugin:2.3.1' }
+}
+
+subprojects {
+
+    group = 'edu.wisc.my.restproxy'
+    version = '2.1.0-SNAPSHOT'
+
+    repositories {
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+        maven { url "https://code.doit.wisc.edu/maven/content/repositories/public-releases/" }
+        maven { url "https://code.doit.wisc.edu/maven/content/repositories/uw-releases/" }
+        maven { url "http://repo.maven.apache.org/maven2" }
+    }
+
+    apply plugin: 'groovy'
+    apply plugin: 'com.bmuschko.nexus'
+
+    // Nexus deploy configuration
+    nexus {
+        sign = true
+        repositoryUrl = 'https://oss.sonatype.org/service/local/staging/deploy/maven2/'
+        snapshotRepositoryUrl = 'https://oss.sonatype.org/content/repositories/snapshots/'
+    }
+
+    extraArchive {
+        javadoc = true
+        sources = true
+        tests = true
+    }
+
+    modifyPom {
+        project {
+            url 'https://github.com/UW-Madison-DoIT/rest-proxy'
+            inceptionYear '2015'
+            scm {
+                url 'https://github.com/UW-Madison-DoIT/rest-proxy'
+                connection 'scm:https://github.com/UW-Madison-DoIT/rest-proxy.git'
+                developerConnection 'scm:git://github.com/UW-Madison-DoIT/rest-proxy.git'
+            }
+            licenses {
+                license {
+                    name 'The Apache Software License, Version 2.0'
+                    url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    distribution 'repo'
+                }
+            }
+            developers {
+                developer {
+                    name 'My UW Dev Team'
+                    email 'my-admin@lists.wisc.edu'
+                    url 'https://github.com/UW-Madison-DoIT'
+                    organization 'UW-Madison-DoIT'
+                }
+            }
+            // The nexus plugin overlooks provided dependencies
+            // so we override this bit to make sure they get in
+            def generatedDeps = dependencies
+            dependencies {
+                generatedDeps.each { dep ->
+                    dependency {
+                        groupId dep.groupId
+                        artifactId dep.artifactId
+                        version dep.version
+                        scope dep.scope
+                    }
+                }
+                project.configurations.provided.allDependencies.each { dep ->
+                    dependency {
+                        groupId dep.group
+                        artifactId dep.name
+                        version dep.version
+                        scope 'provided'
+                    }
+                }
+            }
+        }
+    }
+
+    // Define provided scope
+    configurations {
+        provided
+        compile.extendsFrom provided
+    }
+
+}

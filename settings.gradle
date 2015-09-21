@@ -1,0 +1,3 @@
+rootProject.name = 'rest-proxy-parent'
+include 'rest-proxy-boot'
+include 'rest-proxy-core'
