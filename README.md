@@ -1,4 +1,6 @@
 # rest-proxy
+
+[![Join the chat at https://gitter.im/UW-Madison-DoIT/rest-proxy](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/UW-Madison-DoIT/rest-proxy?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 A Simple server side REST proxy service written in Groovy
 
 [![Build Status](https://travis-ci.org/UW-Madison-DoIT/rest-proxy.svg)](https://travis-ci.org/UW-Madison-DoIT/rest-proxy)
