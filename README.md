@@ -13,7 +13,7 @@ Typically, a web application that wanted to issue XmlHttpRequests to another web
 Without rest-proxy, imagine how you would have to integrate these two applications:
 
 1. The application hosting the REST API will likely have separate authentication mechanism, say a "service account" using HTTP Basic/Digest.
-2. In order for your web application to make REST calls, your application is going to have to have it's own REST Controllers which are simply a Proxy for the other application. You'll need a proxy method/controller for every method on the target REST API you want to call.
+2. In order for your web application to make REST calls, your application is going to have to have its own REST Controllers which are simply a Proxy for the other application. You'll need a proxy method/controller for every method on the target REST API you want to call.
 3. Those controllers will be pretty boiler plate, binding the same URL/query pattern that the target endpoint supports, then delegating to some rest client configured with your "service account."
 
 Items number 2 and 3 above are provided with rest-proxy.
@@ -52,7 +52,7 @@ Items number 2 and 3 above are provided with rest-proxy.
         <url-pattern>/proxy/*</url-pattern>
     </servlet-mapping>
 ```
-4. Now we have to configure the proxy. rest-proxy gets it's configuration about the target REST APIs you want to proxy from the Spring `@Environment`. If you have a `@PropertySource` already defined, you can add the necessary properties there, or you can choose to add a separate `@PropertySource` (it doesn't matter, they all end up in `@Environment` no matter how many `@PropertySource`s you have). The most basic configuration available is as follows:
+4. Now we have to configure the proxy. rest-proxy gets its configuration about the target REST APIs you want to proxy from the Spring `@Environment`. If you have a `@PropertySource` already defined, you can add the necessary properties there, or you can choose to add a separate `@PropertySource` (it doesn't matter, they all end up in `@Environment` no matter how many `@PropertySource`s you have). The most basic configuration available is as follows:
 ```
 target.url=http://somewhere.wisc.edu/something
 ```
@@ -67,9 +67,9 @@ target.password=somepassword
 
 ### Quickstart an example 
 
-The rest-proxy-boot module in this project is a Spring Boot project that includes rest-proxy-core. It's intended for demonstration purposes:
+The rest-proxy-boot module in this project is a Spring Boot project that includes rest-proxy-core. It is intended for demonstration purposes.
 
-#### Running
+#### Running rest-proxy-boot
 * Supply endpoint configuration - you can copy application.properties.example to get started, or add a command-line flag, e.g. `--todos.uri=http://jsonplaceholder.typicode.com/todos`
 * Run `gradle bootRun` to start the server
 * [Verify in your browser](localhost:8080/todos)
