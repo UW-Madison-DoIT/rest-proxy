@@ -26,21 +26,25 @@ Items number 2 and 3 above are provided with rest-proxy.
 
 ### Getting Started
 
-1. Add the following dependency to your project:
+* Add the following dependency to your project:
+
 ```
-<dependency>
-  <groupId>edu.wisc.my.restproxy</groupId>
-  <artifactId>rest-proxy-core</artifactId>
-  <version>2.0.0</artifactId>
-</dependency>```
-2. A Spring `@Configuration` class is provided, add `@Import(edu.wisc.my.restproxy.config.RestProxyConfiguration)` on one of your existing `@Configuration` classes. If you are using Spring's XML configuration instead, add the following to your `Spring application context`:
+        <dependency>
+          <groupId>edu.wisc.my.restproxy</groupId>
+          <artifactId>rest-proxy-core</artifactId>
+          <version>2.0.0</artifactId>
+        </dependency>
+```
+* A Spring `@Configuration` class is provided, add `@Import(edu.wisc.my.restproxy.config.RestProxyConfiguration)` on one of your existing `@Configuration` classes. If you are using Spring's XML configuration instead, add the following to your `Spring application context`:
+
 ```xml
     <mvc:annotation-driven/>
     <context:component-scan base-package="edu.wisc.my.restproxy">
        <context:exclude-filter type="regex" expression="edu.wisc.my.restproxy.config.*"/>
     </context:component-scan>
 ```
-3. Configure a url-pattern for the Spring DispatcherServlet. If you are writing a [My UW App](https://github.com/UW-Madison-DoIT/my-app-seed/), you may not have the DispatcherServlet already configured. Add the following to web.xml:
+* Configure a url-pattern for the Spring DispatcherServlet. If you are writing a [My UW App](https://github.com/UW-Madison-DoIT/my-app-seed/), you may not have the DispatcherServlet already configured. Add the following to web.xml:
+
 ```xml
     <servlet>
         <servlet-name>proxy</servlet-name>
@@ -52,17 +56,19 @@ Items number 2 and 3 above are provided with rest-proxy.
         <url-pattern>/proxy/*</url-pattern>
     </servlet-mapping>
 ```
-4. Now we have to configure the proxy. rest-proxy gets its configuration about the target REST APIs you want to proxy from the Spring `@Environment`. If you have a `@PropertySource` already defined, you can add the necessary properties there, or you can choose to add a separate `@PropertySource` (it doesn't matter, they all end up in `@Environment` no matter how many `@PropertySource`s you have). The most basic configuration available is as follows:
+* Now we have to configure the proxy. rest-proxy gets its configuration about the target REST APIs you want to proxy from the Spring `@Environment`. If you have a `@PropertySource` already defined, you can add the necessary properties there, or you can choose to add a separate `@PropertySource` (it doesn't matter, they all end up in `@Environment` no matter how many `@PropertySource`s you have). The most basic configuration available is as follows:
+
 ```
 target.url=http://somewhere.wisc.edu/something
 ```
 This configuration will result in the url 'http://localhost:8080/proxy/target/foo' (assuming http://localhost:8080 is your web application's address) being a proxy for 'http://somewhere.wisc.edu/something/foo'. If 'http://somewhere.wisc.edu/something' requires service account credentials, the configuration expands to:
+
 ```
 target.url=http://somewhere.wisc.edu/something
 target.username=someuser
 target.password=somepassword
 ```
-5. Secure your configuration! **This is a complicated topic** and there is no simple explanation. Some ideas and samples are covered [in the reference manual](docs/reference.md).
+* Secure your configuration! **This is a complicated topic** and there is no simple explanation. Some ideas and samples are covered [in the reference manual](docs/reference.md).
 
 
 ### Quickstart an example 
