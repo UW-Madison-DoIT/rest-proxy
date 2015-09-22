@@ -62,7 +62,7 @@ target.url=http://somewhere.wisc.edu/something
 target.username=someuser
 target.password=somepassword
 ```
-5. Secure your configuration! **This is a complicated topic** and there is no simple explanation. Some ideas and samples are covered [in the reference manual](README-reference.md).
+5. Secure your configuration! **This is a complicated topic** and there is no simple explanation. Some ideas and samples are covered [in the reference manual](docs/reference.md).
 
 
 ### Quickstart an example 
@@ -79,5 +79,6 @@ __OR__
 * Run `gradle build` to build a standalone jar
 * Start the server by running `java -jar rest-proxy-boot/build/rest-proxy-boot-<VERSION>.jar`
 
+### More documentation
 
-
+See [docs](docs) for more documentation about this project.
