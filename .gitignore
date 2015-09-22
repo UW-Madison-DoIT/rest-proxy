@@ -15,6 +15,7 @@ hs_err_pid*
 .project
 .settings
 .gradle
+bin/
 build/
 .idea/
 *.swp
