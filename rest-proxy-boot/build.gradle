@@ -1,4 +1,9 @@
-description = "A simple standalone REST proxy server"
+modifyPom {
+  project {
+    name 'Rest Proxy Boot'
+    description 'A simple standalone REST proxy server using Spring Boot'
+  }
+}
 
 buildscript {
     repositories {
