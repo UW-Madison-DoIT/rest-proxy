@@ -1,4 +1,9 @@
-description = "A simple server-side REST proxy library"
+modifyPom {
+  project {
+    name 'Rest Proxy Core'
+    description 'A simple server-side REST proxy library'
+  }
+}
 
 sourceCompatibility = 1.7
 targetCompatibility = 1.7

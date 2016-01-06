@@ -10,7 +10,7 @@ plugins {
 subprojects {
 
     group = 'edu.wisc.my.restproxy'
-    version = '2.1.0'
+    version = '2.1.1'
 
     repositories {
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
@@ -37,6 +37,8 @@ subprojects {
 
     modifyPom {
         project {
+            name 'Rest Proxy Parent'
+            description 'Rest Proxy Parent'
             url 'https://github.com/UW-Madison-DoIT/rest-proxy'
             inceptionYear '2015'
             scm {
