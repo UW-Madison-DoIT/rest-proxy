@@ -173,6 +173,29 @@ public class RestProxyServiceImplTest {
     when(proxyDao.proxyRequest(expected)).thenReturn(result);
     assertEquals(result, proxy.proxyRequest("withAdditionalPath", request));
   }
+  
+  /**
+   * Experiment for {@link RestProxyServiceImpl#proxyRequest(String, HttpServletRequest)}, confirms
+   * expected behavior when the request path contains no additional fragments and the path
+   * within attribute is the same as the resource key
+   */
+  @Test
+  public void proxyRequest_withOutAdditionalPathResourceKeyIsSameAsResourcePath() {
+    final ResponseEntity<Object> result = new ResponseEntity<Object>(new Object(), HttpStatus.OK);
+
+    MockHttpServletRequest request = new MockHttpServletRequest();
+    request.setMethod("GET");
+    request.setAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE, "/withoutAdditionalHeaders");
+    env.setProperty("withoutAdditionalHeaders.uri", "http://localhost/foo");
+    ProxyRequestContext expected = new ProxyRequestContext("withoutAdditionalHeaders").setUri("http://localhost/foo");
+    ProxyRequestContext expected2 = new ProxyRequestContext("withoutAdditionalHeaders").setUri("http://localhost/foo/");
+    
+    when(proxyDao.proxyRequest(expected)).thenReturn(result);
+    when(proxyDao.proxyRequest(expected2)).thenReturn(null);
+    assertEquals(result, proxy.proxyRequest("withoutAdditionalHeaders", request));
+  }
+  
+  
   /**
    * Experiment for {@link RestProxyServiceImpl#proxyRequest(String, HttpServletRequest)}
    * where the request has a 'application/json' body.
