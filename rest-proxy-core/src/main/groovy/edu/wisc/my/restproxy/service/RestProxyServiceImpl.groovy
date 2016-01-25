@@ -2,6 +2,8 @@ package edu.wisc.my.restproxy.service
 
 import groovy.transform.CompileStatic;
 
+import java.net.URLDecoder;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang3.StringUtils;
@@ -80,7 +82,7 @@ public class RestProxyServiceImpl implements RestProxyService {
 
     if(StringUtils.isNotBlank(request.getQueryString())) {
       uri.append("?");
-      uri.append(request.getQueryString());
+      uri.append(URLDecoder.decode(request.getQueryString()));
     }
 
     String username = env.getProperty(resourceKey + ".username");
