@@ -188,10 +188,10 @@ public class RestProxyServiceImplTest {
     request.setAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE, "/withoutAdditionalHeaders");
     env.setProperty("withoutAdditionalHeaders.uri", "http://localhost/foo");
     ProxyRequestContext expected = new ProxyRequestContext("withoutAdditionalHeaders").setUri("http://localhost/foo");
-    ProxyRequestContext expected2 = new ProxyRequestContext("withoutAdditionalHeaders").setUri("http://localhost/foo/");
+    ProxyRequestContext notExpected = new ProxyRequestContext("withoutAdditionalHeaders").setUri("http://localhost/foo/");
     
     when(proxyDao.proxyRequest(expected)).thenReturn(result);
-    when(proxyDao.proxyRequest(expected2)).thenReturn(null);
+    when(proxyDao.proxyRequest(notExpected)).thenReturn(null);
     assertEquals(result, proxy.proxyRequest("withoutAdditionalHeaders", request));
   }
   
