@@ -72,7 +72,7 @@ public class RestProxyServiceImpl implements RestProxyService {
       if(resourcePath.startsWith("/"+resourceKey)) {
         resourcePath = resourcePath.replaceFirst("/"+resourceKey, "");
       }
-      if(!StringUtils.endsWith(uri, "/") && !resourcePath.startsWith("/")) {
+      if(!StringUtils.endsWith(uri, "/") && StringUtils.isNotBlank(resourcePath) && !resourcePath.startsWith("/")) {
         uri.append("/");
       }
       uri.append(resourcePath);
