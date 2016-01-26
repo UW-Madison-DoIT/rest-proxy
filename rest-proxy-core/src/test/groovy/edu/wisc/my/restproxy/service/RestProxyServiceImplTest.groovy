@@ -75,6 +75,30 @@ public class RestProxyServiceImplTest {
     when(proxyDao.proxyRequest(expected)).thenReturn(result);
     assertEquals(result, proxy.proxyRequest("control", request));
   }
+  
+  /**
+   * Test simulates a request with query parameters.  Testing against double encoding in the uri.
+   */
+  @Test
+  public void withQueryStringEncoding() {
+    final ResponseEntity<Object> result = new ResponseEntity<Object>(new Object(), HttpStatus.OK);
+
+    MockHttpServletRequest request = new MockHttpServletRequest();
+    request.setMethod("GET");
+    request.setAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE, "/control/foo");
+    request.setQueryString("search=bar&name=bucky%20badger");
+    env.setProperty("control.uri", "http://destination");
+
+    //note the resourceKey ('control' in this context) is stripped from the uri
+    ProxyRequestContext expected = new ProxyRequestContext("control").setUri("http://destination/foo?search=bar&name=bucky badger");
+    ProxyRequestContext notExpected = new ProxyRequestContext("control").setUri("http://destination/foo?search=bar&name=bucky%20badger");
+
+    when(proxyDao.proxyRequest(expected)).thenReturn(result);
+    when(proxyDao.proxyRequest(notExpected)).thenReturn(null);
+    assertEquals(result, proxy.proxyRequest("control", request));
+  }
+
+
   /**
    * Test simulates a proxy request which fails with a http 400 error.
    * An error like this could be encountered if you were to post invalid data to a form.
