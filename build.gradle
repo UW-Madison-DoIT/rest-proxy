@@ -10,7 +10,7 @@ plugins {
 subprojects {
 
     group = 'edu.wisc.my.restproxy'
-    version = '2.1.1'
+    version = '2.1.3-SNAPSHOT'
 
     repositories {
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
