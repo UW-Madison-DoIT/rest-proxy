@@ -10,6 +10,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -48,6 +49,7 @@ public class ResourceProxyController {
    * @param key
    * @return the body of the proxy response or null.
    */
+  @CrossOrigin
   @RequestMapping("/{key}/**")
   public @ResponseBody Object proxyResource(HttpServletRequest request,
       HttpServletResponse response,
