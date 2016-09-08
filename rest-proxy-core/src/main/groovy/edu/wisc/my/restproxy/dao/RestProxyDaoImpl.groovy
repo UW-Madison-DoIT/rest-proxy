@@ -1,4 +1,10 @@
-package edu.wisc.my.restproxy.dao;
+package edu.wisc.my.restproxy.dao
+
+import com.sun.deploy.net.HttpResponse
+import edu.wisc.my.restproxy.JWTUtils
+import edu.wisc.my.restproxy.model.ProxyAuthMethod
+import groovy.json.JsonSlurper
+import org.springframework.http.HttpStatus;
 
 import java.util.Map.Entry;
 
@@ -14,7 +20,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import edu.wisc.my.restproxy.ProxyRequestContext;
+import edu.wisc.my.restproxy.model.ProxyRequestContext;
 
 /**
  * {@link RestProxyDao} implementation backed by a {@link RestTemplate}.
@@ -42,12 +48,14 @@ public class RestProxyDaoImpl implements RestProxyDao, InitializingBean {
 
   private static final Logger logger = LoggerFactory.getLogger(RestProxyDaoImpl.class);
   /* (non-Javadoc)
-   * @see edu.wisc.my.restproxy.dao.RestProxyDao#proxyRequest(edu.wisc.my.restproxy.ProxyRequestContext)
+   * @see edu.wisc.my.restproxy.dao.RestProxyDao#proxyRequest(edu.wisc.my.restproxy.model.ProxyRequestContext)
    */
   @Override
   public ResponseEntity<Object> proxyRequest(ProxyRequestContext context) {
     HttpHeaders headers = new HttpHeaders();
-    if(StringUtils.isNotBlank(context.getUsername()) && null != context.getPassword()) {
+    if(context.authMethod == ProxyAuthMethod.BASIC
+            && StringUtils.isNotBlank(context.getUsername())
+            && null != context.getPassword()) {
       StringBuffer credsBuffer = new StringBuffer(context.getUsername());
       credsBuffer.append(":");
       credsBuffer.append(context.getPassword());
@@ -55,6 +63,12 @@ public class RestProxyDaoImpl implements RestProxyDao, InitializingBean {
       byte[] base64CredsBytes = Base64.encodeBase64(creds.getBytes());
       String base64Creds = new String(base64CredsBytes);
       headers.add("Authorization", "Basic " + base64Creds);
+    }else if (context.authMethod == ProxyAuthMethod.JWT
+                && null != context.getJwtDetails().isValid()) {
+      //go get token
+      String token = getToken(context);
+      //add token to header
+      headers.add("Authorization", "Bearer ${token}");
     }
 
     for(Entry<String, String> entry: context.getHeaders().entries()) {
@@ -68,4 +82,19 @@ public class RestProxyDaoImpl implements RestProxyDao, InitializingBean {
     return response;
   }
 
+  private String getToken(ProxyRequestContext context) {
+    HttpEntity<Object> request = new HttpEntity<Object>();
+    Map<String, String> parameters = new HashMap<>();
+    parameters.put("grant_type",context.getJwtDetails().getGrantType());
+    parameters.put("assertion", JWTUtils.generateToken(context.getJwtDetails()));
+
+    ResponseEntity response = restTemplate.postForEntity(context.getJwtDetails().getTokenURL(), request, Object.class, parameters);
+    if(response.statusCode == HttpStatus.OK && response.hasBody()) {
+      return response.body.access_token;
+    } else {
+      //throw exception, world ends, oh nos!!
+      logger.error("Issue getting token for " + context.getResourceKey());
+      throw new Exception("Issue getting token for " + context.getResourceKey());
+    }
+  }
 }

@@ -1,4 +1,4 @@
-package edu.wisc.my.restproxy
+package edu.wisc.my.restproxy.model
 
 import groovy.transform.Canonical
 import groovy.transform.CompileStatic

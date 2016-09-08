@@ -1,4 +1,4 @@
-package edu.wisc.my.restproxy
+package edu.wisc.my.restproxy.model
 
 import groovy.transform.Canonical;
 import groovy.transform.CompileStatic
@@ -24,6 +24,8 @@ public class ProxyRequestContext {
   String uri;
   String username;
   String password;
+  ProxyAuthMethod authMethod = ProxyAuthMethod.NONE;
+  JWTDetails jwtDetails = new JWTDetails();
   Map<String, String> attributes = new HashMap<>();
   Multimap<String, String> headers = ArrayListMultimap.create();
   RequestBody requestBody;
@@ -40,7 +42,7 @@ public class ProxyRequestContext {
    */
   @Override
   public String toString() {
-    return "ProxyRequestContext [resourceKey=${resourceKey}, httpMethod=${httpMethod}, uri=${uri}, username=${username}, password=${password != null ? '<set, suppressed>' : 'empty'}, attributes=${attributes}, headers=${headers}]"
+    return "ProxyRequestContext [resourceKey=${resourceKey}, httpMethod=${httpMethod}, uri=${uri}, username=${username}, password=${password != null ? '<set, suppressed>' : 'empty'}, attributes=${attributes}, headers=${headers}, authMethod=${authMethod}, jwtDetails=${jwtDetails} ]"
   }
 
 }

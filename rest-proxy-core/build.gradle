@@ -19,6 +19,7 @@ dependencies {
     compile 'org.springframework:spring-webmvc:4.3.1.RELEASE'
     compile 'org.slf4j:jcl-over-slf4j:1.7.21'
     compile 'org.slf4j:slf4j-api:1.7.21'
+    compile 'io.jsonwebtoken:jjwt:0.6.0'
     runtime 'ch.qos.logback:logback-classic:1.1.7'
     runtime 'org.slf4j:jul-to-slf4j:1.7.21'
     runtime 'org.slf4j:log4j-over-slf4j:1.7.21'
