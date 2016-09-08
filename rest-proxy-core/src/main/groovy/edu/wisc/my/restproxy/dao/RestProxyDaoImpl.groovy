@@ -1,9 +1,7 @@
 package edu.wisc.my.restproxy.dao
 
-import com.sun.deploy.net.HttpResponse
 import edu.wisc.my.restproxy.JWTUtils
 import edu.wisc.my.restproxy.model.ProxyAuthMethod
-import groovy.json.JsonSlurper
 import org.springframework.http.HttpStatus;
 
 import java.util.Map.Entry;
