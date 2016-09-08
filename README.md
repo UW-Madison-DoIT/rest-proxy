@@ -73,7 +73,11 @@ target.password=somepassword
 * Secure your configuration! **This is a complicated topic** and there is no simple explanation. Some ideas and samples are covered [in the reference manual](docs/reference.md).
 
 
-### Quickstart an example 
+### Quickstart an example
+
+#### Prerequirement
+
+You need to install gradle 2.x for this to work. Download here: https://services.gradle.org/distributions/gradle-2.14-bin.zip
 
 The rest-proxy-boot module in this project is a Spring Boot project that includes rest-proxy-core. It is intended for demonstration purposes.
 
