@@ -48,7 +48,7 @@ public class ResourceProxyController {
    * @param key
    * @return the body of the proxy response or null.
    */
-  @RequestMapping("/api/{key}/**")
+  @RequestMapping("/proxy/{key}/**")
   public @ResponseBody Object proxyResource(HttpServletRequest request,
       HttpServletResponse response,
       @PathVariable String key) {
