@@ -1,8 +1,7 @@
 package edu.wisc.my.restproxy.service
 
-import groovy.transform.CompileStatic;
-
-import java.net.URLDecoder;
+import edu.wisc.my.restproxy.model.ProxyAuthMethod
+import groovy.transform.CompileStatic
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -20,8 +19,8 @@ import org.springframework.web.servlet.HandlerMapping;
 import com.google.common.net.HttpHeaders;
 
 import edu.wisc.my.restproxy.KeyUtils;
-import edu.wisc.my.restproxy.ProxyRequestContext;
-import edu.wisc.my.restproxy.RequestBody;
+import edu.wisc.my.restproxy.model.ProxyRequestContext;
+import edu.wisc.my.restproxy.model.RequestBody;
 import edu.wisc.my.restproxy.dao.RestProxyDao;
 
 /**
@@ -85,8 +84,11 @@ public class RestProxyServiceImpl implements RestProxyService {
       uri.append(URLDecoder.decode(request.getQueryString()));
     }
 
-    String username = env.getProperty(resourceKey + ".username");
-    String password = env.getProperty(resourceKey + ".password");
+    String authType = env.getProperty("${resourceKey}.auth");
+    ProxyAuthMethod am = authType ? ProxyAuthMethod.valueOf(authType) :  ProxyAuthMethod.NONE;
+
+    String username = env.getProperty("${resourceKey}.username");
+    String password = env.getProperty("${resourceKey}.password");
 
     ProxyRequestContext context = new ProxyRequestContext(resourceKey)
       .setAttributes(KeyUtils.getHeaders(env, request, resourceKey))
@@ -94,7 +96,18 @@ public class RestProxyServiceImpl implements RestProxyService {
       .setPassword(password)
       .setHeaders(KeyUtils.getProxyHeaders(env, resourceKey, request))
       .setUri(uri.toString())
-      .setUsername(username);
+      .setUsername(username)
+      .setAuthMethod(am);
+
+      if(am == ProxyAuthMethod.JWT) {
+        context.getJwtDetails().setId(Long.toString(System.currentTimeMillis()));
+        context.getJwtDetails().setGrantType(env.getProperty("${resourceKey}.jwt.granttype"));
+        context.getJwtDetails().setIssuer(env.getProperty("${resourceKey}.jwt.issuer"));
+        context.getJwtDetails().setSubject(env.getProperty("${resourceKey}.jwt.subject"));
+        context.getJwtDetails().setSecret(env.getProperty("${resourceKey}.jwt.secret"));
+        context.getJwtDetails().setTtl(env.getProperty("${resourceKey}.jwt.ttl"));
+        context.getJwtDetails().setTokenURL(env.getProperty("${resourceKey}.jwt.tokenurl"));
+      }
 
     RequestBody requestBody;
     try {

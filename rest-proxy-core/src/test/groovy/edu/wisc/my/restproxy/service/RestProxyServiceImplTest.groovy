@@ -19,7 +19,7 @@ import org.springframework.mock.env.MockEnvironment;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.servlet.HandlerMapping;
 
-import edu.wisc.my.restproxy.ProxyRequestContext;
+import edu.wisc.my.restproxy.model.ProxyRequestContext;
 import edu.wisc.my.restproxy.ValidationResult;
 import edu.wisc.my.restproxy.dao.RestProxyDao;
 

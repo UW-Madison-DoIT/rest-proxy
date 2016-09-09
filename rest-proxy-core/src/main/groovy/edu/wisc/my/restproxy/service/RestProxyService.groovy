@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.http.ResponseEntity;
 
-import edu.wisc.my.restproxy.ProxyRequestContext;
+import edu.wisc.my.restproxy.model.ProxyRequestContext;
 
 /**
  * Service interface for proxying a REST API.
