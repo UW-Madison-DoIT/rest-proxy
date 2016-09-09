@@ -34,3 +34,6 @@ someservice.proxyHeaders=On-Behalf-Of: {wiscedupvi},Some-Other-Header: staticval
 #todos placeholder example
 todos.uri=http://jsonplaceholder.typicode.com/todos
 
+endpoints.enabled=false
+endpoints.health.enabled=true
+
