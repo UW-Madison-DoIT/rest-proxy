@@ -1,9 +1,9 @@
 package edu.wisc.my.restproxy.config
 
-import groovy.transform.CompileStatic;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
+import groovy.transform.CompileStatic
+import org.springframework.context.annotation.ComponentScan
+import org.springframework.context.annotation.Configuration
+import org.springframework.context.annotation.Import
 
 /**
  * {@link Configuration} activating necessary REST proxy services.
