@@ -29,8 +29,13 @@ public class ResourceProxyController {
 
   @Autowired
   private RestProxyService proxyService;
-  @Autowired
+
   private ReportService reportService;
+
+  @Autowired
+  void setReportService(ReportService reportService) {
+    this.reportService = reportService
+  }
   @Autowired
   private Environment env;
 
