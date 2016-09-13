@@ -49,7 +49,7 @@ public class RestProxyServiceImplTest {
 
     MockHttpServletRequest request = new MockHttpServletRequest();
     request.setMethod("GET");
-    request.setAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE, "/control/foo");
+    request.setAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE, "/proxy/control/foo");
     env.setProperty("control.uri", "http://destination");
 
     //note the resourceKey ('control' in this context) is stripped from the uri
@@ -65,7 +65,7 @@ public class RestProxyServiceImplTest {
 
     MockHttpServletRequest request = new MockHttpServletRequest();
     request.setMethod("GET");
-    request.setAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE, "/control/foo");
+    request.setAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE, "/proxy/control/foo");
     request.setQueryString("search=bar&name=bucky");
     env.setProperty("control.uri", "http://destination");
 
@@ -75,7 +75,7 @@ public class RestProxyServiceImplTest {
     when(proxyDao.proxyRequest(expected)).thenReturn(result);
     assertEquals(result, proxy.proxyRequest("control", request));
   }
-  
+
   /**
    * Test simulates a request with query parameters.  Testing against double encoding in the uri.
    */
@@ -85,7 +85,7 @@ public class RestProxyServiceImplTest {
 
     MockHttpServletRequest request = new MockHttpServletRequest();
     request.setMethod("GET");
-    request.setAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE, "/control/foo");
+    request.setAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE, "/proxy/control/foo");
     request.setQueryString("search=bar&name=bucky%20badger");
     env.setProperty("control.uri", "http://destination");
 
@@ -197,7 +197,7 @@ public class RestProxyServiceImplTest {
     when(proxyDao.proxyRequest(expected)).thenReturn(result);
     assertEquals(result, proxy.proxyRequest("withAdditionalPath", request));
   }
-  
+
   /**
    * Experiment for {@link RestProxyServiceImpl#proxyRequest(String, HttpServletRequest)}, confirms
    * expected behavior when the request path contains no additional fragments and the path
@@ -209,17 +209,17 @@ public class RestProxyServiceImplTest {
 
     MockHttpServletRequest request = new MockHttpServletRequest();
     request.setMethod("GET");
-    request.setAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE, "/withoutAdditionalHeaders");
+    request.setAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE, "/proxy/withoutAdditionalHeaders");
     env.setProperty("withoutAdditionalHeaders.uri", "http://localhost/foo");
     ProxyRequestContext expected = new ProxyRequestContext("withoutAdditionalHeaders").setUri("http://localhost/foo");
     ProxyRequestContext notExpected = new ProxyRequestContext("withoutAdditionalHeaders").setUri("http://localhost/foo/");
-    
+
     when(proxyDao.proxyRequest(expected)).thenReturn(result);
     when(proxyDao.proxyRequest(notExpected)).thenReturn(null);
     assertEquals(result, proxy.proxyRequest("withoutAdditionalHeaders", request));
   }
-  
-  
+
+
   /**
    * Experiment for {@link RestProxyServiceImpl#proxyRequest(String, HttpServletRequest)}
    * where the request has a 'application/json' body.
