@@ -1,5 +1,6 @@
 package edu.wisc.my.restproxy.web
 
+import edu.wisc.my.restproxy.service.ReportService
 import groovy.transform.CompileStatic;
 
 import javax.servlet.http.HttpServletRequest;
@@ -28,6 +29,13 @@ public class ResourceProxyController {
 
   @Autowired
   private RestProxyService proxyService;
+
+  private ReportService reportService;
+
+  @Autowired
+  void setReportService(ReportService reportService) {
+    this.reportService = reportService
+  }
   @Autowired
   private Environment env;
 
@@ -55,9 +63,11 @@ public class ResourceProxyController {
     ResponseEntity<Object> responseEntity = proxyService.proxyRequest(key, request);
     if(responseEntity == null || responseEntity.getStatusCode() == null) {
       response.setStatus(HttpStatus.NOT_FOUND.value());
+      reportService.logReport(key, HttpStatus.NOT_FOUND.toString(), System.currentTimeMillis());
       return null;
     }
     response.setStatus(responseEntity.getStatusCode().value());
+    reportService.logReport(key, responseEntity.getStatusCode().toString(), System.currentTimeMillis());
     return responseEntity.hasBody() ? responseEntity.getBody() : null;
   }
 }
