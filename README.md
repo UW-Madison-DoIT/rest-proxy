@@ -89,7 +89,7 @@ The rest-proxy-boot module in this project is a Spring Boot project that include
 __OR__
 
 * Run `gradle build` to build a standalone jar
-* Start the server by running `java -jar rest-proxy-boot/build/rest-proxy-boot-<VERSION>.jar`
+* Start the server by running `java -jar rest-proxy-boot/build/libs/rest-proxy-boot-<VERSION>.jar`
 
 ### More documentation
 
