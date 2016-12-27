@@ -4,6 +4,7 @@
 A Simple server side REST proxy service written in Groovy
 
 [![Build Status](https://travis-ci.org/UW-Madison-DoIT/rest-proxy.svg)](https://travis-ci.org/UW-Madison-DoIT/rest-proxy)
+[![Dependency Status](https://dependencyci.com/github/UW-Madison-DoIT/rest-proxy/badge)](https://dependencyci.com/github/UW-Madison-DoIT/rest-proxy)
 
 ### Purpose
 
