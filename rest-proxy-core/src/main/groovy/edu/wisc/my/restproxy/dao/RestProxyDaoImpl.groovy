@@ -2,7 +2,8 @@ package edu.wisc.my.restproxy.dao
 
 import edu.wisc.my.restproxy.JWTUtils
 import edu.wisc.my.restproxy.model.ProxyAuthMethod
-import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatus
+import org.springframework.http.converter.HttpMessageConverter;
 
 import java.util.Map.Entry;
 
@@ -42,6 +43,7 @@ public class RestProxyDaoImpl implements RestProxyDao, InitializingBean {
   @Override
   public void afterPropertiesSet() throws Exception {
     this.restTemplate.setErrorHandler(new RestProxyResponseErrorHandler());
+    this.restTemplate.setMessageConverters(Arrays.asList(new AgnosticHttpMessageConverter()))
   };
 
   private static final Logger logger = LoggerFactory.getLogger(RestProxyDaoImpl.class);
