@@ -16,6 +16,10 @@ Upgrading:
 
 The v3 series differs from the v2 series in prefixing proxy access with `/proxy/` (to create namespace for other functionality at paths other than `/proxy/`). This is a breaking change in that all usages of your `rest-proxy` instances will need to add a `/proxy/` to the URLs they are requesting across this upgrade.
 
+## 3.2.0
+
+Adds the ability to proxy any content type, rather than just application/json and a few other types.
+
 ## 3.1.0
 
 Adds a health check for each key.
