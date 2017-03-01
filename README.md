@@ -1,7 +1,10 @@
 # rest-proxy
 
 [![Join the chat at https://gitter.im/UW-Madison-DoIT/rest-proxy](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/UW-Madison-DoIT/rest-proxy?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 A Simple server side REST proxy service written in Groovy
+
+[![SVG badge indicating latest version in Maven Central](https://img.shields.io/maven-central/v/edu.wisc.my.restproxy/rest-proxy-core.svg)](http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22rest-proxy-core%22)
 
 [![Build Status](https://travis-ci.org/UW-Madison-DoIT/rest-proxy.svg)](https://travis-ci.org/UW-Madison-DoIT/rest-proxy)
 [![Dependency Status](https://dependencyci.com/github/UW-Madison-DoIT/rest-proxy/badge)](https://dependencyci.com/github/UW-Madison-DoIT/rest-proxy)
