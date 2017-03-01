@@ -55,6 +55,27 @@ This freed namespace for health check endpoints.
 
 This series ended with v2.2.0.
 
-TODO: document v2 versions.
+## 2.2.0
+
+Added JWT to methods available for `rest-proxy` to authenticate to proxied resources.
+
+## 2.1.4
+
+Tweaked dependency declarations to stop needlessly depending upon 
+
++ UW-Madison local Maven repositories
++ snapshots
+
+Tweaked Travis-CI build to run faster by caching dependencies.
+
+## 2.1.3 
+
++ Upgraded dependencies
++ Cleaned away legacy Spring Boot configuration
+
+# Earlier releases
+
+[Releases on GitHub](https://github.com/UW-Madison-DoIT/rest-proxy/releases) represent these.
+
 
 [edu.wisc.my.restproxy group in Maven Central]: http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22edu.wisc.my.restproxy%22
