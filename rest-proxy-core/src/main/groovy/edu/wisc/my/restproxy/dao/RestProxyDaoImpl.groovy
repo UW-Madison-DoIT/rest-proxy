@@ -43,7 +43,9 @@ public class RestProxyDaoImpl implements RestProxyDao, InitializingBean {
   @Override
   public void afterPropertiesSet() throws Exception {
     this.restTemplate.setErrorHandler(new RestProxyResponseErrorHandler());
-    this.restTemplate.setMessageConverters(Arrays.asList(new AgnosticHttpMessageConverter()))
+    List<HttpMessageConverter> converters = restTemplate.getMessageConverters()
+    converters.add(new AgnosticHttpMessageConverter())
+    this.restTemplate.setMessageConverters(converters)
   };
 
   private static final Logger logger = LoggerFactory.getLogger(RestProxyDaoImpl.class);
