@@ -1,6 +1,11 @@
 # rest-proxy
 
-[![Join the chat at https://gitter.im/UW-Madison-DoIT/rest-proxy](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/UW-Madison-DoIT/rest-proxy?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/)
+
+**rest-proxy has moved into [a private Git repository](https://git.doit.wisc.edu/wps/myuw-service/myuw-legacy/rest-proxy).
+No further maintenance is intended here in this GitHub repository, which has been archived and is now read-only.**
+
+-----
 
 A Simple server side REST proxy service written in Groovy
 
